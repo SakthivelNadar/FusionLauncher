@@ -26,6 +26,8 @@ import static com.android.launcher3.util.SecureSettingsObserver.newNotificationS
 import static com.fusion.launcher.OverlayCallbackImpl.KEY_ENABLE_MINUS_ONE;
 
 import android.content.Context;
+
+import android.app.ActivityManager;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -181,6 +183,7 @@ public class SettingsActivity extends FragmentActivity
             switch (preference.getKey()) {
                 case NOTIFICATION_DOTS_PREFERENCE_KEY:
                     if (!Utilities.ATLEAST_OREO ||
+                            getContext().getSystemService(ActivityManager.class).isLowRamDevice() ||
                             !getResources().getBoolean(R.bool.notification_dots_enabled)) {
                         return false;
                     }
