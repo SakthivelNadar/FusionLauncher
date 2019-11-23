@@ -364,7 +364,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
 
         // Re-init grid
         String gridName = getCurrentGridName(context);
-        initGrid(context, gridName);
+        initGrid(context, Utilities.getPrefs(context).getString(KEY_IDP_GRID_NAME, gridName));
 
         int changeFlags = 0;
         if (numRows != oldProfile.numRows ||
