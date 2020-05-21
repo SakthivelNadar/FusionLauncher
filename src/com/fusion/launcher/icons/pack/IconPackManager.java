@@ -3,6 +3,7 @@ package com.fusion.launcher.icons.pack;
 import static com.android.launcher3.util.Executors.MODEL_EXECUTOR;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -22,8 +23,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.p404.launcher.customization.IconDatabase;
-import com.p404.launcher.util.AppReloader;
+import com.fusion.launcher.customization.IconDatabase;
+import com.fusion.launcher.util.AppReloader;
 
 public class IconPackManager extends BroadcastReceiver {
     private static final String TAG = "IconPackManager";
@@ -145,6 +146,16 @@ public class IconPackManager extends BroadcastReceiver {
             providerTitles.put(pack.getKey(), pack.getValue().getTitle());
         }
         return providerTitles;
+    }
+
+    public boolean packContainsActivity(String packPackage, ComponentName componentName) {
+        try {
+            IconPack pack = mProviders.get(packPackage);
+            IconPack.Data data = pack.getData(mContext.getPackageManager());
+            return data.drawables.containsKey(componentName);
+        } catch (PackageManager.NameNotFoundException | XmlPullParserException | IOException ignored) {
+            return false;
+        }
     }
 
     /**
