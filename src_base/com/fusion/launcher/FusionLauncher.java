@@ -17,6 +17,14 @@
 package com.fusion.launcher;
 
 import com.android.launcher3.Launcher;
+import com.android.systemui.plugins.shared.LauncherOverlayManager;
 
 public class FusionLauncher extends Launcher {
+
+    @Override
+    protected LauncherOverlayManager getDefaultOverlay() {
+        return new OverlayCallbackImpl(this);
+    }
+
+}
 
